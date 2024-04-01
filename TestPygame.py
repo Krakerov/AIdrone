@@ -14,6 +14,7 @@ koef = sample_rate/1000
 ChanelsVelu = [1, 1, 1, 1, 1, 1, 1, 1]
 # Список продолжительностей импульсов
 def PrintSaund(Chanels):
+    
     durations = [x+1 for x in Chanels] # Продолжительности в mcсекундах
 
 
@@ -23,7 +24,7 @@ def PrintSaund(Chanels):
 
     WaweList = []
 
-    #WaweList.extend(np.zeros(int((Sumlen - SumDuration))))
+    WaweList.extend(np.zeros(int((Sumlen - SumDuration)*koef)))
     WaweList.extend(np.ones(int(pulslen*koef)))
 
     # Генерация и воспроизведение серии квадратных импульсов
@@ -37,10 +38,12 @@ def PrintSaund(Chanels):
         #square_wave = 0.5 * (np.sign(np.sin(2 * np.pi * frequency * t)) + 1)
         #for i in square_wave:
             #print(i)
-    WaweListFix =  np.zeros(sample_rate - len(WaweList))
-    WaweListFix = np.concatenate ((WaweListFix, WaweList))
-    sound = pygame.sndarray.make_sound(np.repeat(np.int16(WaweListFix * 32767).reshape(22050, 1), 2, axis = 1))
+    #WaweListFix =  np.zeros(sample_rate - len(WaweList))
+    #WaweListFix = np.concatenate ((WaweListFix, WaweList))
+    WaweList.extend(np.zeros(sample_rate - len(WaweList)))
+    sound = pygame.sndarray.make_sound(np.repeat(np.int16(WaweList * 32767).reshape(22050, 1), 2, axis = 1))
     sound.play()
-    pygame.time.wait(int(Sumlen))
+    pygame.time.wait(int(50))
+    
 while True: # ЗАПУСКАТЬ ТОЛЬКО В РЕЖИМЕ ОТЛАДКИ
     PrintSaund(ChanelsVelu)
