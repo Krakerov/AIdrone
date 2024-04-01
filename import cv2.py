@@ -17,7 +17,9 @@ def MasMinus(array1, array2):
      for i in range(len(array1)):
           array.append(array1[i]-array2[i])
      return array
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
+print("cap: ")
+print (cap)
 cap.set(cv2.CAP_PROP_FPS, 30)
 
 cv2.createTrackbar('T2',"Track", 0, 255, nothing)
@@ -26,7 +28,7 @@ while True:
     minim = cv2.getTrackbarPos('T1','Track')
     maxi = cv2.getTrackbarPos('T2','Track')
     ret, frame = cap.read()
-    
+    print(ret)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray_frame = cv2.bilateralFilter(gray_frame,9,75,75)
