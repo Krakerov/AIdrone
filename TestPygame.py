@@ -43,7 +43,7 @@ def PrintSaund(Chanels):
     WaweList.extend(np.zeros(sample_rate - len(WaweList)))
     sound = pygame.sndarray.make_sound(np.repeat(np.int16(WaweList * 32767).reshape(22050, 1), 2, axis = 1))
     sound.play()
-    pygame.time.wait(int(50))
+    pygame.time.wait(int(Sumlen))
     
 while True: # ЗАПУСКАТЬ ТОЛЬКО В РЕЖИМЕ ОТЛАДКИ
     PrintSaund(ChanelsVelu)
