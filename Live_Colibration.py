@@ -17,7 +17,7 @@ prev_img_shape = None
 Rvecs_list = []
 Tvecs_list = []
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 images = []
 np_img = []
 while True:
@@ -25,7 +25,7 @@ while True:
 
     imgpoints = [] 
     ret, img = cap.read()
-    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, corners = cv2.findChessboardCorners(gray, CHECKERBOARD, cv2.CALIB_CB_ADAPTIVE_THRESH + cv2.CALIB_CB_FAST_CHECK + cv2.CALIB_CB_NORMALIZE_IMAGE)
     if ret == True:
         objpoints.append(objp)
@@ -40,6 +40,7 @@ while True:
     h,w = img.shape[:2]
     if len(objpoints)>0 and len(imgpoints)>0:
         ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
+        
         #time.sleep(0.5)
         rvers_norm = (rvecs[0][0][0]**2+rvecs[0][0][0]**2 + rvecs[0][0][0]**2)**0.5
         Rvecs_list.append([int(rvecs[0][0][0]*100/rvers_norm),int(rvecs[0][1][0]*100/rvers_norm),int(rvecs[0][2][0]*100/rvers_norm)])
@@ -51,9 +52,9 @@ while True:
         #print(Rvecs_list, Tvecs_list)
         print('Начало')
         print("Camera matrix : \n")
-        #print(mtx)
+        print(mtx)
         print("dist : \n")
-        #print(dist)
+        print(dist)
         print("Вращение : \n")
         print(rvecs)
         print(int(rvecs[0][2][0]))

@@ -28,7 +28,8 @@ while True:
     minim = cv2.getTrackbarPos('T1','Track')
     maxi = cv2.getTrackbarPos('T2','Track')
     ret, frame = cap.read()
-    print(ret)
+    
+
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray_frame = cv2.bilateralFilter(gray_frame,9,75,75)
@@ -36,6 +37,7 @@ while True:
         gray = cv2.inRange(gray_frame, minim, maxi)
     else: gray = cv2.inRange(gray_frame, 243, 255)
 
+    size = frame.shape
     height, width = frame.shape[0:2]
     conturs, _ = cv2.findContours(gray, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     list_dots = []
@@ -72,12 +74,30 @@ while True:
             center = (MasPlus(list_dots[0], list_dots[2]))
         center[0] = int(center[0]/2)
         center[1] = int(center[1]/2)
-        print(center)
+        #print(center)
         cv2.line(frame, (center[0], 0), (center[0], height), (0, 255, 0), 2)
         cv2.line(frame, (0, center[1]), (width, center[1]), (0, 255, 0), 2)
+    
+        points_3D = numpy.array(
+            [
+                (36, -36, 0),
+                (36, 36, 0),
+                (-36, 36, 0),
+            ],
+            dtype=numpy.double
+        )
+        matrix_camera = numpy.array(
+            [(2.90028693, 0.00000000, 3.52921945),
+            (0.00000000, 9.42517589, 2.40513648),
+            (0.00000000, 0.00000000, 1.00000000)],
+            dtype=numpy.double
+        )
+        list_dots = numpy.array(list_dots, dtype=numpy.double)
 
-
-
+        success, vector_rotation, vector_translation = cv2.solvePnP(points_3D, list_dots, matrix_camera, numpy.zeros((5, 1)), numpy.zeros((3,1)), numpy.zeros((3,1)), cv2.SOLVEPNP_P3P)
+        if success:
+            #print(numpy.round(vector_translation, 5))
+             print(vector_translation)
     hsv_gray_frame = cv2.cvtColor(hsv, cv2.COLOR_BGR2GRAY)
     sv_gray_frame = cv2.bilateralFilter(gray_frame,9,75,75)
 
