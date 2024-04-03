@@ -16,6 +16,7 @@ public class ChangeColor : MonoBehaviour
     private Color matColor;
     
     private Vector3 position;
+    private Vector3 rotation;
 
     public static readonly int PORT = 1755;
     public static readonly int WAITTIME = 1;
@@ -38,6 +39,7 @@ public class ChangeColor : MonoBehaviour
     void Update()
     {
         transform.position = position;
+        transform.rotation = rotation;
         print(position);
     }
 
@@ -114,6 +116,7 @@ public class ChangeColor : MonoBehaviour
                 string content = state.colorCode.ToString();
                 print($"Read {content.Length} bytes from socket.\n Data : {content}");
                 position = SetCord(content);
+                rotation = SetRot(content);
             }
             handler.Close();
         }
@@ -128,17 +131,13 @@ public class ChangeColor : MonoBehaviour
             float.Parse(cord[2]));
         return(position);
     }
-    private void SetColors (string data) 
-    {
-        string[] colors = data.Split(',');
-        matColor = new Color()
-        {
-            r = float.Parse(colors[0]) / 255.0f,
-            g = float.Parse(colors[1]) / 255.0f,
-            b = float.Parse(colors[2]) / 255.0f,
-            a = float.Parse(colors[3]) / 255.0f
-        };
-
+    private static Vector3 SetRot(string data){
+        string[] cord = data.Split(',');
+        Vector3 rotation = new Vector3(
+            float.Parse(cord[3]),
+            float.Parse(cord[4]),
+            float.Parse(cord[5]));
+        return(rotation);
     }
 
     private void OnDestroy()

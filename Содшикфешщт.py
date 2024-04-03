@@ -51,5 +51,5 @@ while True:
     print("tvecs : \n")
     print(tvecs)
     k = cv2.waitKey(30) & 0xFF
-    if k == 27:
+    if k == 27:   
         break

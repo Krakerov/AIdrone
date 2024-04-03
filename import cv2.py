@@ -1,5 +1,8 @@
 import cv2
 import numpy
+import SampleApp
+import random
+from time import sleep
 
 def nothing(x):
 	pass
@@ -17,6 +20,7 @@ def MasMinus(array1, array2):
      for i in range(len(array1)):
           array.append(array1[i]-array2[i])
      return array
+     
 cap = cv2.VideoCapture(0)
 print("cap: ")
 print (cap)
@@ -97,7 +101,13 @@ while True:
         success, vector_rotation, vector_translation = cv2.solvePnP(points_3D, list_dots, matrix_camera, numpy.zeros((5, 1)), numpy.zeros((3,1)), numpy.zeros((3,1)), cv2.SOLVEPNP_P3P)
         if success:
             #print(numpy.round(vector_translation, 5))
-             print(vector_translation)
+            #print(vector_translation.view(float).reshape(vector_translation.shape + (-1,))[0][0][0])
+            normalvectorCord = [int(vector_translation[0].tolist()[0]),int( vector_translation[1].tolist()[0]),int(vector_translation[2].tolist()[0])]
+            normalvectorRot = [int(vector_rotation[0].tolist()[0]), int(vector_rotation[1].tolist()[0]),int(vector_rotation[2].tolist()[0])]
+            #SampleApp.SetPosition(normalvectorCord, [4,5,6])
+            SampleApp.SetPosition(normalvectorCord, (random.randint(-10,10), random.randint(-10,10), random.randint(-10,10)))
+
+            
     hsv_gray_frame = cv2.cvtColor(hsv, cv2.COLOR_BGR2GRAY)
     sv_gray_frame = cv2.bilateralFilter(gray_frame,9,75,75)
 
