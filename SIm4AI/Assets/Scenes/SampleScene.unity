@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 285167707}
   - component: {fileID: 285167712}
   - component: {fileID: 285167713}
+  - component: {fileID: 285167714}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -239,7 +240,7 @@ Transform:
   m_GameObject: {fileID: 285167706}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.79, z: 0}
+  m_LocalPosition: {x: 0, y: 2.79, z: -3.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -285,12 +286,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e659b791ab926bc4dba961ee07b4bf65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+  Target: {fileID: 1799550495}
   main_thrust: 2
-  P: 6
-  I: 1
-  D: 2
+  P: 2
+  I: 0.1
+  i_error: 30
+  D: 1
+  SumPid: 0
   set: 6
+--- !u!114 &285167714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285167706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02df2c8fd16b69549a008b7ee8a872eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 1799550495}
+  main_thrust_x: 2
+  P_x: 2
+  I_x: 0.4
+  i_error_x: 0
+  D_x: 10
+  SumPid_x: 0
+  set_x: 0
+  i_error_z: 0
+  SumPid_z: 0
+  set_z: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +515,7 @@ GameObject:
   - component: {fileID: 1799550494}
   - component: {fileID: 1799550493}
   - component: {fileID: 1799550492}
+  - component: {fileID: 1799550496}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -582,6 +609,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1799550496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799550491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd87bb5b7e958e468bd2f2a818ac069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1917799188
 GameObject:
   m_ObjectHideFlags: 0

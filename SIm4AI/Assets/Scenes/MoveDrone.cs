@@ -7,12 +7,12 @@ public class MoveDrone : MonoBehaviour
     private Rigidbody rbGO;
     public Transform Target;
     public float main_thrust = 2;
-    public float P = 6f;
-    public float I = 0.5f;
-    float i_error;
-    public float D = 1.5f;
+    public float P = 2f;
+    public float I = 0.1f;
+    public float i_error = 40f;
+    public float D = 1f;
     float preErr = 0;
-    float SumPid;
+    public float SumPid;
     public float set = 6;
     // Start is called before the first frame update
     void Start()
@@ -26,10 +26,13 @@ public class MoveDrone : MonoBehaviour
         
     }
     void FixedUpdate() {
+        set = Target.position.y;
         i_error += (set - transform.position.y)*Time.deltaTime;
         SumPid = (set - transform.position.y)*P + i_error*I +  (set - transform.position.y - preErr)/Time.deltaTime*D;
+        if (SumPid < 0) SumPid = 0;
         preErr = set - transform.position.y;
-        rbGO.AddForce(transform.up * SumPid);
+        rbGO.AddForce(transform.up * SumPid*main_thrust);
+        
 
     }
 }

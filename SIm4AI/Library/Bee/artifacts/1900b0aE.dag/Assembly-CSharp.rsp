@@ -354,6 +354,8 @@
 -analyzer:"D:/Новая папка/Юнити/2022.3.21f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scenes/MoveDrone.cs"
 "Assets/Scenes/Real2Sim.cs"
+"Assets/Scenes/Rot_Drone.cs"
+"Assets/Scenes/Trigger.cs"
 -langversion:9.0
 
 /deterministic
