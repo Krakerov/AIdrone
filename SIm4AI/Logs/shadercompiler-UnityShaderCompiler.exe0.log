@@ -1,4 +1,7 @@
-Base path: 'C:/Program Files/Unity/Hub/Editor/2022.3.21f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2022.3.21f1/Editor/Data/PlaybackEngines'
+Base path: 'D:/Новая папка/Юнити/2022.3.21f1/Editor/Data', plugins path 'D:/Новая папка/Юнити/2022.3.21f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
 
+<<<<<<< HEAD
 Cmd: shutdown
+=======
+>>>>>>> a8ed164592a44cd5cf1dee81547cac33beba5493

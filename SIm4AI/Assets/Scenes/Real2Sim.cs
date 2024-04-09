@@ -14,13 +14,14 @@ public class Real2Sim : MonoBehaviour
     public ManualResetEvent allDone;
     public Renderer objectRenderer;
     private Color matColor;
-    private bool Connect = false;
+    public bool Connect = false;
     
     private Vector3 position;
     private Vector3 rotation;
 
     public static readonly int PORT = 1755;
     public static readonly int WAITTIME = 1;
+    private Rigidbody rbGO;
 
 
     Real2Sim()
@@ -32,6 +33,8 @@ public class Real2Sim : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
+        rbGO = gameObject.GetComponent<Rigidbody>();
+
         //objectRenderer = GetComponent<Renderer>();
         await Task.Run(() => ListenEvents(source.Token));   
     }
@@ -39,20 +42,19 @@ public class Real2Sim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Connect = false;
         if (Connect){
+            rbGO.Sleep();  
             transform.position = position;
             transform.rotation = Quaternion.Euler(rotation);
-            print(position);
+            rbGO.WakeUp();  
         }
-        
+        Connect = false;
         //transform.Rotate(rotation, Space.World);
     }
 
     private void ListenEvents(CancellationToken token)
     {
-
-        Connect = false;
+         Connect = false;
         IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
         IPAddress ipAddress = ipHostInfo.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
         IPEndPoint localEndPoint = new IPEndPoint(ipAddress, PORT);
@@ -87,6 +89,7 @@ public class Real2Sim : MonoBehaviour
         }
         catch (Exception e)
         {
+            Debug.Log("not connected");
             print(e.ToString());
         }
     }
@@ -109,7 +112,7 @@ public class Real2Sim : MonoBehaviour
         Socket handler = state.workSocket;
 
         int read = handler.EndReceive(ar);
-  
+        Connect = false;
         if (read > 0)
         {
             state.colorCode.Append(Encoding.ASCII.GetString(state.buffer, 0, read));
@@ -122,7 +125,6 @@ public class Real2Sim : MonoBehaviour
                 Connect = true;
                 string content = state.colorCode.ToString();
                 print($"Read {content.Length} bytes from socket.\n Data : {content}");
-                print(content);
                 position = SetCord(content);
                 rotation = SetRot(content);
             }
@@ -140,7 +142,6 @@ public class Real2Sim : MonoBehaviour
             float.Parse(cord[0]),
             float.Parse(cord[1]),
             float.Parse(cord[2]));
-        print(data);
         return(position);
     }
     private static Vector3 SetRot(string data){
