@@ -17,7 +17,7 @@ prev_img_shape = None
 Rvecs_list = []
 Tvecs_list = []
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 images = []
 np_img = []
 while True:
