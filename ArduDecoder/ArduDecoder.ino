@@ -15,7 +15,11 @@
  change theese values in your code (usually servo values move between 1000 and 2000)*/
 int ppm[CHANNEL_NUMBER];
 int j = 1000;
+String input;
+String Ost_input;
 void setup(){  
+  Serial.begin(9600);
+  
 
   //initiallize default ppm values
   for(int i=0; i<CHANNEL_NUMBER; i++){
@@ -38,14 +42,98 @@ void setup(){
 }
 
 void loop(){
-  j+=10;
+
+  //j+=10;
+  //for(int i=0; i<CHANNEL_NUMBER; i++){
+  //    ppm[i]= j;
+  //}
+  //if (j>2000){
+  //  j = 1000;
+  //}
+  
+  if (Serial.available()>0){
+    input = "";
+    while(Serial.available()>0){
+      input += (char)Serial.read();
+    }
+    Serial.println(input);
+
+    int index = input.indexOf(',');
+    int len = input.length();
+    int last_index = 0;
+    Ost_input = input.substring(index,len);
+    Serial.println(input.substring(last_index,index).toFloat());
+    ppm[0] = map(input.substring(last_index,index).toFloat(), -40, 40, 1000, 2000);
+    input = Ost_input.substring(1,len - index);
+    last_index = index;
+    Serial.println(input);
+
+    index = input.indexOf(',');
+    len = input.length();
+    last_index = 0;
+    Ost_input = input.substring(index,len);
+    Serial.println(last_index,index);
+    ppm[1] = map(input.substring(last_index,index).toFloat(), -40, 40, 1000, 2000);
+    input = Ost_input.substring(1,len - index);
+    last_index = index;
+    Serial.println(input);
+
+    index = input.indexOf(',');
+    len = input.length();
+    last_index = 0;
+    Ost_input = input.substring(index,len);
+    Serial.println(last_index,index);
+    ppm[2] = map(input.substring(last_index,index).toFloat(), 0, 30, 1000, 2000);
+    input = Ost_input.substring(1,len - index);
+    last_index = index;
+    Serial.println(input);
+
+    index = input.indexOf(',');
+    len = input.length();
+    last_index = 0;
+    Ost_input = input.substring(index,len);
+    Serial.println(last_index,index);
+    ppm[3] = map(input.substring(last_index,index).toFloat(), -40, 40, 1000, 2000);
+    input = Ost_input.substring(1,len - index);
+    last_index = index;
+    Serial.println(input);
+
+    
+    /*
+    float k;
+    char *token = strtok(token, ",");
+    k = atof(token);// AIL +-40
+    Serial.println(k);
+    ppm[0] = map(k, -40, 40, 1000, 2000);
+
+    token = strtok(NULL, ",");
+    k = atof(token);// Ele +-40
+    Serial.println(k);
+    ppm[1] = map(k, -40, 40, 1000, 2000);
+    
+    token = strtok(NULL, ",");
+    k = atof(token);// Thr 0 - 30
+    Serial.println(k);
+    ppm[2] = map(k, 0, 30, 1000, 2000);
+
+    token = strtok(NULL, ",");
+    k = atof(token);// Rud хз
+    Serial.println(k);
+    ppm[3] = map(k, -40, 40, 1000, 2000);
+    */
+  }
+  
+
+
+
+
   for(int i=0; i<CHANNEL_NUMBER; i++){
-      ppm[i]= j;
+      //Serial.println(ppm[i]);
   }
-  if (j>2000){
-    j = 1000;
-  }
-  delay (100);
+  //while(token != NULL){
+      
+  //}
+  delay (5);
   /*
     Here modify ppm array and set any channel to value between 1000 and 2000. 
     Timer running in the background will take care of the rest and automatically 

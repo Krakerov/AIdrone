@@ -42,7 +42,6 @@ public class Rot_Drone : MonoBehaviour
         set_z = Target.position.z;
         i_error_z += (set_z - transform.position.z)*Time.deltaTime;
         SumPid_z = (set_z - transform.position.z)*P_x + i_error_z*I_x +  (set_z - transform.position.z - preErr_z)/Time.deltaTime*D_x;
-        if SumPid_z > 10
         preErr_z = set_z - transform.position.z;
         //rbGO.AddForce(transform.right * SumPid_x*main_thrust_x);
 

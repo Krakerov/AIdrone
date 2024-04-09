@@ -14,6 +14,7 @@ public class MoveDrone : MonoBehaviour
     float preErr = 0;
     public float SumPid;
     public float set = 6;
+    public float SumThrust;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,8 @@ public class MoveDrone : MonoBehaviour
         SumPid = (set - transform.position.y)*P + i_error*I +  (set - transform.position.y - preErr)/Time.deltaTime*D;
         if (SumPid < 0) SumPid = 0;
         preErr = set - transform.position.y;
-        rbGO.AddForce(transform.up * SumPid*main_thrust);
+        SumThrust = SumPid*main_thrust;
+        rbGO.AddForce(transform.up * SumThrust);
         
 
     }
