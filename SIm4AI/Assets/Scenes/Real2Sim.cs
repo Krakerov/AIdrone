@@ -42,7 +42,6 @@ public class Real2Sim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (Connect){
             rbGO.Sleep();  
             transform.position = position;

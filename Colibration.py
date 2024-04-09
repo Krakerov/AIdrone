@@ -14,7 +14,7 @@ objp = np.zeros((1, CHECKERBOARD[0] * CHECKERBOARD[1], 3), np.float32)
 objp[0,:,:2] = np.mgrid[0:CHECKERBOARD[0], 0:CHECKERBOARD[1]].T.reshape(-1, 2)
 prev_img_shape = None
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 images = []
 np_img = []
 while True:

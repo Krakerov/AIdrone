@@ -21,7 +21,7 @@ def MasMinus(array1, array2):
           array.append(array1[i]-array2[i])
      return array
      
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 print("cap: ")
 print (cap)
 cap.set(cv2.CAP_PROP_FPS, 30)
