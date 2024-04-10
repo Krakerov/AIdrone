@@ -18,7 +18,7 @@ int j = 1000;
 String input;
 String Ost_input;
 void setup(){  
-  Serial.begin(9600);
+  Serial.begin(115200);
   
 
   //initiallize default ppm values
@@ -98,6 +98,8 @@ void loop(){
     last_index = index;
     Serial.println(input);
 
+    delay (500);
+
     
     /*
     float k;
@@ -133,7 +135,7 @@ void loop(){
   //while(token != NULL){
       
   //}
-  delay (5);
+  
   /*
     Here modify ppm array and set any channel to value between 1000 and 2000. 
     Timer running in the background will take care of the rest and automatically 
