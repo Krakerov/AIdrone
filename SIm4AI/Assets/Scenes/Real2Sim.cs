@@ -18,7 +18,9 @@ public class Real2Sim : MonoBehaviour
     
     private Vector3 position;
     private Vector3 rotation;
-
+    public Vector3 Fix_position;
+    public Vector3 Fix_rotation;
+    
     public static readonly int PORT = 1755;
     public static readonly int WAITTIME = 1;
     private Rigidbody rbGO;
@@ -44,8 +46,8 @@ public class Real2Sim : MonoBehaviour
     {
         if (Connect){
             rbGO.Sleep();  
-            transform.position = position;
-            transform.rotation = Quaternion.Euler(rotation);
+            transform.position = position - Fix_position + new Vector3(0,1,0);
+            transform.rotation = Quaternion.Euler(rotation - Fix_rotation);
             rbGO.WakeUp();  
         }
         Connect = false;
@@ -54,7 +56,7 @@ public class Real2Sim : MonoBehaviour
 
     private void ListenEvents(CancellationToken token)
     {
-         Connect = false;
+        Connect = false;
         IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
         IPAddress ipAddress = ipHostInfo.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
         IPEndPoint localEndPoint = new IPEndPoint(ipAddress, PORT);
@@ -164,5 +166,11 @@ public class Real2Sim : MonoBehaviour
         public const int BufferSize = 1024;
         public byte[] buffer = new byte[BufferSize];
         public StringBuilder colorCode = new StringBuilder();
+    }
+    public void ButtonClc()
+    {
+        Fix_position = position;
+        Fix_rotation = rotation;
+        Debug.Log("clc");
     }
 }
