@@ -633,6 +633,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1917799189}
+  - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 8.175, y: 0, z: -1.545}
 --- !u!54 &285167712
@@ -683,6 +684,7 @@ MonoBehaviour:
   SumPid: 0
   set: 6
   SumThrust: 0
+  angle: 0
 --- !u!114 &285167714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,16 +698,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 80526716}
-  main_thrust_x: 2
-  P_x: 2
-  I_x: 0.4
+  main_thrust_x: 1
+  P_x: 5
+  I_x: 2
   i_error_x: 0
-  D_x: 10
+  D_x: 15
   SumPid_x: 0
   set_x: 0
   i_error_z: 0
   SumPid_z: 0
   set_z: 0
+  maks_angle: 40
 --- !u!114 &285167715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,6 +723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data_string: 
   MoveDrone: {fileID: 285167713}
+  maksThrust: 0.25
 --- !u!1 &288649099
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,12 +971,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29491696, y: -0, z: -0, w: 0.9555229}
-  m_LocalPosition: {x: 0, y: 12.56, z: -10}
+  m_LocalRotation: {x: 0.22603297, y: 0.003048331, z: 0.013135935, w: 0.9740263}
+  m_LocalPosition: {x: -0.2351014, y: 8.714768, z: -8.02125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 285167711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1568355302
 GameObject:
@@ -1277,7 +1281,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 285167711}
   - {fileID: 2107882932}

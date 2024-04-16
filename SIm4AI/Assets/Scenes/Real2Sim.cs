@@ -46,9 +46,11 @@ public class Real2Sim : MonoBehaviour
     {
         if (Connect){
             rbGO.Sleep();  
-            transform.position = position - Fix_position + new Vector3(0,1,0);
-            transform.rotation = Quaternion.Euler(rotation - Fix_rotation);
-            rbGO.WakeUp();  
+            //transform.position = position/10 - Fix_position/10 + new Vector3(0,1,0);
+            //transform.rotation = Quaternion.Euler(rotation - Fix_rotation);
+            
+            rbGO.MovePosition(position/10 - Fix_position/10 + new Vector3(0,1,0)); 
+            rbGO.WakeUp(); 
         }
         Connect = false;
         //transform.Rotate(rotation, Space.World);

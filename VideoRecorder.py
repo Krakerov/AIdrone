@@ -20,7 +20,7 @@ while True:
         cv2.imshow('Webcam', frame)
         
         # write frame to the video file
-        video.write(frame)
+        #video.write(frame)
 
     # escape condition
     if cv2.waitKey(1) & 0xFF == 27: break

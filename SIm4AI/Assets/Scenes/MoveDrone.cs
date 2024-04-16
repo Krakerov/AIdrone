@@ -15,6 +15,7 @@ public class MoveDrone : MonoBehaviour
     public float SumPid;
     public float set = 6;
     public float SumThrust;
+    public float angle;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +29,18 @@ public class MoveDrone : MonoBehaviour
     }
     void FixedUpdate() {
         set = Target.position.y;
+        
         i_error += (set - transform.position.y)*Time.deltaTime;
+        
+        if (Mathf.Abs(i_error)>30) i_error = i_error/Mathf.Abs(i_error) * 30;
+        
         SumPid = (set - transform.position.y)*P + i_error*I +  (set - transform.position.y - preErr)/Time.deltaTime*D;
         if (SumPid < 0) SumPid = 0;
         preErr = set - transform.position.y;
-        SumThrust = SumPid*main_thrust;
+        SumThrust = SumPid*main_thrust* (-Mathf.Cos(Mathf.Cos(angle))+2);
+        if (SumThrust > 40) SumThrust = 40f;
+
+        angle = Vector3.Angle(transform.up, new Vector3(0,1,0));
         rbGO.AddForce(transform.up * SumThrust);
         
 

@@ -83,7 +83,7 @@ void loop(){
     last_index = 0;
     Ost_input = input.substring(index,len);
     Serial.println(last_index,index);
-    ppm[2] = map(input.substring(last_index,index).toFloat(), 0, 30, 1000, 2000);
+    ppm[2] = map(input.substring(last_index,index).toFloat(), 0, 40, 1000, 2000);
     input = Ost_input.substring(1,len - index);
     last_index = index;
     Serial.println(input);
